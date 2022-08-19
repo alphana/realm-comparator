@@ -6,6 +6,7 @@ WORKDIR /go/src/github.com/alphana/
 COPY *.go ./
 
 RUN go mod init
+RUN go get github.com/wI2L/jsondiff
 RUN go build -o realm-comparator-server *.go
 
 FROM alpine:3.16.2
