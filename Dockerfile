@@ -10,9 +10,9 @@ RUN go get github.com/wI2L/jsondiff
 RUN go build -o realm-comparator-server *.go
 
 FROM alpine:3.16.2
-
+ARG PORT=3005
 # Install consent-server for testing
 
 COPY --from=builder /go/src/github.com/alphana/realm-comparator-server /usr/local/sbin/
-
+EXPOSE $PORT
 ENTRYPOINT [ "realm-comparator-server" ]

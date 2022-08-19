@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -86,7 +87,17 @@ func diffHandler(writer http.ResponseWriter, request *http.Request) {
 
 }
 
+func getenv(key, fallback string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return fallback
+	}
+	return value
+}
+
 func main() {
+
+	appPort := ":" + getenv("PORT", "3005")
 	http.HandleFunc("/api/diff", diffHandler)
-	http.ListenAndServe(":3005", nil)
+	http.ListenAndServe(appPort, nil)
 }
